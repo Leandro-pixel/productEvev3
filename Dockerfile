@@ -1,25 +1,28 @@
-# Usar uma imagem Maven para o build (já tem o JDK e Maven configurados)
+# Fase 1: Build com Maven
 FROM maven:3.9.5-eclipse-temurin-21 AS build
 
-# Definir o diretório de trabalho
 WORKDIR /app
-
-# Copiar os arquivos da aplicação para o contêiner
 COPY . .
 
-# Rodar o Maven para compilar a aplicação
+# Compilar sem rodar os testes
 RUN mvn clean install -DskipTests
-# Usar uma imagem base do OpenJDK para rodar a aplicação
+
+# Fase 2: Imagem final para rodar a aplicação
 FROM openjdk:17-jdk-slim
 
-# Definir o diretório de trabalho
 WORKDIR /app
 
-# Copiar o JAR gerado do estágio de build para o contêiner
+# Copiar o JAR compilado
 COPY --from=build /app/target/*.jar /app/app.jar
 
-# Expor a porta onde a aplicação Spring Boot vai rodar
+# ✅ Copiar o arquivo de credenciais do Firebase para o container
+COPY producteve-65ffb-firebase-adminsdk-fbsvc-2469a53581.json /app/firebase.json
+
+# ✅ Definir a variável de ambiente para o Firebase usar o arquivo JSON
+ENV GOOGLE_APPLICATION_CREDENTIALS=/app/firebase.json
+
+# Expor a porta padrão do Spring Boot
 EXPOSE 8080
 
-# Rodar o arquivo JAR
+# Rodar o app
 ENTRYPOINT ["java", "-jar", "/app/app.jar"]

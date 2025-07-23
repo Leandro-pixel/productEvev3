@@ -1,5 +1,5 @@
 # Usar uma imagem Maven para o build (já tem o JDK e Maven configurados)
-FROM maven:3.8.1-openjdk-17-slim AS build
+FROM maven:3.9.5-eclipse-temurin-21 AS build
 
 # Definir o diretório de trabalho
 WORKDIR /app

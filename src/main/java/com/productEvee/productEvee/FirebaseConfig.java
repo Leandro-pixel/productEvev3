@@ -12,8 +12,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import javax.annotation.PostConstruct;
-import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 
 @Configuration
 public class FirebaseConfig {
@@ -21,12 +21,18 @@ public class FirebaseConfig {
     @PostConstruct
     public void init() {
         try {
-            FileInputStream serviceAccount = new FileInputStream("src/main/resources/producteve-65ffb-firebase-adminsdk-fbsvc-2469a53581.json");
+            InputStream serviceAccount = getClass().getClassLoader()
+    .getResourceAsStream("producteve-65ffb-firebase-adminsdk-fbsvc-2469a53581.json");
 
-            FirebaseOptions options = FirebaseOptions.builder()
-                    .setCredentials(GoogleCredentials.fromStream(serviceAccount))
-                    .setDatabaseUrl("https://producteve-65ffb-default-rtdb.firebaseio.com")
-                    .build();
+if (serviceAccount == null) {
+    throw new IllegalStateException("Arquivo de credenciais Firebase não encontrado no classpath!");
+}
+
+        FirebaseOptions options = FirebaseOptions.builder()
+    .setCredentials(GoogleCredentials.fromStream(serviceAccount))
+    .build();
+
+
 
             if (FirebaseApp.getApps().isEmpty()) {
                 FirebaseApp.initializeApp(options);

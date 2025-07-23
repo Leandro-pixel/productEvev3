@@ -10,7 +10,7 @@ COPY . .
 # Rodar o Maven para compilar a aplicação
 RUN mvn clean install -DskipTests
 # Usar uma imagem base do OpenJDK para rodar a aplicação
-FROM openjdk:17-jdk-slim
+FROM openjdk:21-jdk-slim
 
 # Definir o diretório de trabalho
 WORKDIR /app

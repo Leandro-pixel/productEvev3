@@ -19,7 +19,7 @@ import java.nio.charset.StandardCharsets;
 
 @Configuration
 public class FirebaseConfig {
-
+   private static final String DATABASE_URL = "https://producteve-65ffb-default-rtdb.firebaseio.com";
     @PostConstruct
     public void init() throws IOException {
         if (FirebaseApp.getApps().isEmpty()) {
@@ -42,6 +42,7 @@ public class FirebaseConfig {
 
             FirebaseOptions options = FirebaseOptions.builder()
                     .setCredentials(GoogleCredentials.fromStream(serviceAccount))
+                    .setDatabaseUrl(DATABASE_URL)
                     .build();
 
             FirebaseApp.initializeApp(options);

@@ -5,6 +5,9 @@ import com.google.cloud.firestore.Firestore;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.FirebaseOptions;
 import com.google.firebase.cloud.FirestoreClient;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -49,5 +52,9 @@ public class FirebaseConfig {
     @Bean
     public Firestore getFirestore() {
         return FirestoreClient.getFirestore();
+    }
+    @Bean
+    public DatabaseReference databaseReference() {
+        return FirebaseDatabase.getInstance().getReference();
     }
 }

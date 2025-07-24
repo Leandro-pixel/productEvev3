@@ -15,12 +15,6 @@ WORKDIR /app
 # Copiar o JAR compilado
 COPY --from=build /app/target/*.jar /app/app.jar
 
-# ✅ Copiar o arquivo de credenciais do Firebase para o container
-COPY src/main/resources/producteve-65ffb-firebase-adminsdk-fbsvc-2469a53581.json /app/firebase.json
-
-# ✅ Definir a variável de ambiente para o Firebase usar o arquivo JSON
-ENV GOOGLE_APPLICATION_CREDENTIALS=/app/firebase.json
-
 # Expor a porta padrão do Spring Boot
 EXPOSE 8080
 

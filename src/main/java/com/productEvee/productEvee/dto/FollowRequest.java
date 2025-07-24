@@ -1,24 +1,23 @@
 package com.productEvee.productEvee.dto;
 
-import java.util.UUID;
 
 public class FollowRequest {
-    private UUID followerId;
-    private UUID followedId;
+    private String followerId;
+    private String followedId;
 
-    public UUID getFollowerId() {
+    public String getFollowerId() {
         return followerId;
     }
 
-    public void setFollowerId(UUID followerId) {
+    public void setFollowerId(String followerId) {
         this.followerId = followerId;
     }
 
-    public UUID getFollowedId() {
+    public String getFollowedId() {
         return followedId;
     }
 
-    public void setFollowedId(UUID followedId) {
+    public void setFollowedId(String followedId) {
         this.followedId = followedId;
     }
 }

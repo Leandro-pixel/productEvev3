@@ -65,8 +65,10 @@ public CompletableFuture<ResponseEntity<List<User>>> listUsers() {
 }
 
 
-    @PostMapping("/login")
+   @PostMapping("/login")
 public CompletableFuture<ResponseEntity<LoginResponse>> login(@RequestBody LoginRequest loginRequest) {
+    System.out.println("Email recebido: " + loginRequest.email());
+
     return userService.authenticateUser(loginRequest.email())
         .thenApply(userOpt -> {
             if (userOpt.isPresent()) {
@@ -74,6 +76,10 @@ public CompletableFuture<ResponseEntity<LoginResponse>> login(@RequestBody Login
             } else {
                 return ResponseEntity.status(401).body(new LoginResponse("Credenciais inválidas"));
             }
+        })
+        .exceptionally(ex -> {
+            ex.printStackTrace(); // Log completo no console
+            return ResponseEntity.status(503).body(new LoginResponse("Erro interno: " + ex.getMessage()));
         });
 }
 

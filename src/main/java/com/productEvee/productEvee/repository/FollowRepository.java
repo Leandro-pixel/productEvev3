@@ -13,5 +13,5 @@ public interface FollowRepository {
     List<Follow> findByFollower(User follower) throws ExecutionException, InterruptedException;
     List<Follow> findByFollowed(User followed) throws ExecutionException, InterruptedException;
     boolean existsByFollowerAndFollowed(User follower, User followed) throws ExecutionException, InterruptedException;
-    List<Follow> findByFollowedUserId(UUID followedUserId) throws ExecutionException, InterruptedException;
+    List<Follow> findByFollowedUserId(String followedUserId) throws ExecutionException, InterruptedException;
 }

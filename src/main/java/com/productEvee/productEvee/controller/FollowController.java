@@ -7,7 +7,6 @@ import com.productEvee.productEvee.entity.User;
 import com.productEvee.productEvee.service.FollowService;
 
 import java.util.List;
-import java.util.UUID;
 import java.util.concurrent.ExecutionException;
 
 import org.springframework.http.ResponseEntity;
@@ -42,7 +41,7 @@ public class FollowController {
     }
 
     @GetMapping("/followers/{id}")
-    public ResponseEntity<List<User>> getFollowers(@PathVariable UUID id) {
+    public ResponseEntity<List<User>> getFollowers(@PathVariable String id) {
         try {
             List<User> followers = followService.getFollowers(id);
             return ResponseEntity.ok(followers);

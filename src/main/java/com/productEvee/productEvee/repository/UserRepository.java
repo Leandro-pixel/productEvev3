@@ -4,11 +4,11 @@ import com.productEvee.productEvee.entity.User;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
+import java.util.concurrent.CompletableFuture;
 
 public interface UserRepository {
-    Optional<User> findByEmail(String email);
-    Optional<User> findById(UUID id);
+    CompletableFuture<Optional<User>> findByEmail(String email);
+    Optional<User> findById(String id);
     List<User> findByUsernameContainingIgnoreCase(String username);
     void save(User user);
 }

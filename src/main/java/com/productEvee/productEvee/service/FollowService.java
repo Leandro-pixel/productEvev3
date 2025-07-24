@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 import java.util.concurrent.ExecutionException;
 import java.util.stream.Collectors;
 
@@ -23,7 +22,7 @@ public class FollowService {
         this.userRepository = userRepository;
     }
 
-    public boolean followUser(UUID followerId, UUID followedId) throws ExecutionException, InterruptedException {
+    public boolean followUser(String followerId, String followedId) throws ExecutionException, InterruptedException {
         Optional<User> followerOpt = userRepository.findById(followerId);
         Optional<User> followedOpt = userRepository.findById(followedId);
 
@@ -39,7 +38,7 @@ public class FollowService {
         return true;
     }
 
-    public List<User> getFollowers(UUID userId) throws ExecutionException, InterruptedException {
+    public List<User> getFollowers(String userId) throws ExecutionException, InterruptedException {
         List<Follow> follows = followRepository.findByFollowedUserId(userId);
         return follows.stream()
             .map(Follow::getFollower)
